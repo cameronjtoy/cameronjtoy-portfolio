@@ -17,7 +17,6 @@ export default function Stage() {
         eventSource={document.getElementById('root')!}
         eventPrefix="client"
         dpr={[1, quality.maxDpr]}
-        shadows={quality.shadows}
         gl={{ antialias: quality.antialias, alpha: true }}
         camera={{ position: [0, 0, CAMERA_Z], fov: CAMERA_FOV }}
       >

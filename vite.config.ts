@@ -12,8 +12,13 @@ export default defineConfig({
   base,
   plugins: [react()],
   build: {
-    // three.js is one large lazy chunk by nature; PR 9 sets real budgets.
+    // three.js is one large lazy chunk by nature. scripts/check-bundle.mjs
+    // enforces the real size budgets.
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      // 404.html is what GitHub Pages serves for unknown addresses.
+      input: ['index.html', '404.html'],
+    },
   },
   test: {
     include: ['src/**/*.test.{ts,tsx}'],

@@ -20,5 +20,8 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - run: npm run size
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      # Firefox and WebKit run locally; their headless WebGL on CI runners is
+      # unverified, so CI sticks to Chromium.
+      - run: npm run test:e2e -- --project=chromium
