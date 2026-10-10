@@ -3,6 +3,7 @@ import { useRef, type ReactNode, type RefObject } from 'react'
 import type { Group } from 'three'
 import { LowPolyMaterial } from '../../design/LowPolyMaterial'
 import type { PaletteColor } from '../../design/palette'
+import { Vignette as SharedSpot } from '../../engine/Vignette'
 
 /** Per-frame section state, written by the scene and read by its vignettes. */
 export interface EarlierState {
@@ -19,10 +20,7 @@ export interface VignetteProps {
   index: number
 }
 
-/**
- * One beat's mini-scene. All vignettes share the same spot; each grows in
- * when its beat is showing and shrinks away otherwise.
- */
+/** One beat's mini-scene, shown while its beat is the current one. */
 export function Vignette({
   state,
   index,
@@ -32,21 +30,13 @@ export function Vignette({
   rotation: [number, number, number]
   children: ReactNode
 }) {
-  const group = useRef<Group>(null)
-  const size = useRef(0)
-
-  useFrame((_, delta) => {
-    if (!group.current) return
-    const target = state.current.shown === index ? 1 : 0
-    size.current += (target - size.current) * Math.min(1, delta * 9)
-    group.current.visible = size.current > 0.01
-    group.current.scale.setScalar(Math.max(size.current, 0.001))
-  })
-
   return (
-    <group ref={group} rotation={rotation} visible={false}>
+    <SharedSpot
+      isShown={() => state.current.shown === index}
+      rotation={rotation}
+    >
       {children}
-    </group>
+    </SharedSpot>
   )
 }
 

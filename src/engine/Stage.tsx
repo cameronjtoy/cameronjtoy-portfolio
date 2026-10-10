@@ -11,7 +11,11 @@ export default function Stage() {
 
   return (
     <div className="stage" aria-hidden="true">
+      {/* The canvas sits behind the page and ignores the pointer, so scenes
+          get their clicks from the page root instead. */}
       <Canvas
+        eventSource={document.getElementById('root')!}
+        eventPrefix="client"
         dpr={[1, quality.maxDpr]}
         shadows={quality.shadows}
         gl={{ antialias: quality.antialias, alpha: true }}

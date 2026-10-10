@@ -121,6 +121,55 @@ test.describe('3D experience', () => {
     await expect(active).toHaveCount(1)
     await expect(active).toContainText('20%')
   })
+
+  test('runs the cluster and recovers from a stopped leader', async ({
+    page,
+  }) => {
+    await page.goto('./')
+    const scrollTo = (progress: number) =>
+      page.evaluate((progress) => {
+        const section = document.querySelector<HTMLElement>('#personal')!
+        const top = section.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({
+          top: top + (section.offsetHeight - window.innerHeight) * progress,
+          behavior: 'instant',
+        })
+      }, progress)
+
+    await scrollTo(0.15)
+    const status = page.locator('#personal .status').first()
+    await expect(status).toContainText(/leader: node \d/, { timeout: 15_000 })
+    await expect(status).toContainText('5 of 5 nodes up')
+
+    await page.getByRole('button', { name: 'Stop the leader' }).click()
+    await expect(status).toContainText('4 of 5 nodes up')
+    // The remaining four elect a new leader.
+    await expect(status).toContainText(/leader: node \d/, { timeout: 15_000 })
+
+    await page.getByRole('button', { name: 'Restore' }).first().click()
+    await expect(status).toContainText('5 of 5 nodes up')
+  })
+
+  test('breaks and restores the Prem audit trail', async ({ page }) => {
+    await page.goto('./')
+    await page.evaluate(() => {
+      const section = document.querySelector<HTMLElement>('#personal')!
+      const top = section.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: top + (section.offsetHeight - window.innerHeight) * 0.5,
+        behavior: 'instant',
+      })
+    })
+    const prem = page.locator('#prem')
+    await expect(prem).toContainText('all 5 records verify')
+
+    await prem.getByRole('button', { name: 'Edit a record' }).click()
+    await expect(prem).toContainText('Record 1 was edited')
+    await expect(prem).toContainText('Records 2 to 5 no longer verify')
+
+    await prem.getByRole('button', { name: 'Restore' }).click()
+    await expect(prem).toContainText('all 5 records verify')
+  })
 })
 
 test.describe('with reduced motion', () => {

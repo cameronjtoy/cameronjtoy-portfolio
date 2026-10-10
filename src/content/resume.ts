@@ -22,6 +22,8 @@ export interface Project {
   name: string
   stack: string[]
   highlights: string[]
+  /** The highlights reframed as a short product brief, shown on the site. */
+  brief: { label: string; text: string }[]
 }
 
 export interface Education {
@@ -126,6 +128,21 @@ export const resume: Resume = {
         'Built an open-source (Apache-2.0) desktop lab notebook for research labs, storing records as plain markdown with full version history and a tamper-evident hash-chain audit trail; piloting with research labs.',
         'Developed a self-hostable lab server (single Node file, Docker image) with per-person tokens, per-folder permissions, live updates, and edit-conflict protection, backed by unit and end-to-end tests.',
       ],
+      brief: [
+        {
+          label: 'For',
+          text: 'Research labs that want a lab notebook they can host themselves.',
+        },
+        {
+          label: 'What',
+          text: 'An open-source (Apache-2.0) desktop lab notebook. Records are plain markdown with full version history and a tamper-evident hash-chain audit trail.',
+        },
+        {
+          label: 'How',
+          text: 'A self-hostable lab server, shipped as a single Node file and a Docker image, with per-person tokens, per-folder permissions, live updates and edit-conflict protection. Backed by unit and end-to-end tests.',
+        },
+        { label: 'Status', text: 'Piloting with research labs.' },
+      ],
     },
     {
       id: 'vct-manager',
@@ -134,6 +151,21 @@ export const resume: Resume = {
       highlights: [
         'Placed 3rd at the AWS × VCT Hackathon for building an LLM-powered Valorant team-builder and Q&A assistant.',
         'Implemented data cleaning and ETL pipelines in Python, loading processed data into AWS RDS.',
+      ],
+      brief: [
+        {
+          label: 'For',
+          text: 'Building a Valorant team and asking questions about it.',
+        },
+        {
+          label: 'What',
+          text: 'An LLM-powered team-builder and Q&A assistant, built on AWS Bedrock with a Streamlit interface.',
+        },
+        {
+          label: 'How',
+          text: 'Data cleaning and ETL pipelines in Python load processed data into AWS RDS.',
+        },
+        { label: 'Outcome', text: '3rd place at the AWS × VCT Hackathon.' },
       ],
     },
   ],
