@@ -1,40 +1,63 @@
+import { lazy, Suspense } from 'react'
 import { resume } from './content/resume'
+import { NavRail } from './engine/NavRail'
+import { ScrollSection } from './engine/ScrollSection'
+import { useEnhanced } from './engine/useEnhanced'
 import { Education } from './sections/Education'
 import { ExperienceEntry } from './sections/ExperienceEntry'
 import { Header } from './sections/Header'
 import { ProjectEntry } from './sections/ProjectEntry'
 import { Skills } from './sections/Skills'
 
+// three.js only downloads for visitors who get the 3D experience.
+const Stage = lazy(() => import('./engine/Stage'))
+
+const [bnsf, stonyBrook, ...earlier] = resume.experience
+
 function App() {
+  const enhanced = useEnhanced()
+
   return (
-    <>
+    <div className={enhanced ? 'app app--enhanced' : 'app'}>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <Header resume={resume} />
+      {enhanced && (
+        <Suspense fallback={null}>
+          <Stage />
+        </Suspense>
+      )}
+      <NavRail />
+      <ScrollSection id="hero">
+        <Header resume={resume} />
+      </ScrollSection>
       <main id="main">
-        <section aria-labelledby="experience-heading">
-          <h2 id="experience-heading">Experience</h2>
-          {resume.experience.map((entry) => (
+        <ScrollSection id="bnsf">
+          <h2>Experience</h2>
+          <ExperienceEntry entry={bnsf} />
+        </ScrollSection>
+        <ScrollSection id="stony-brook">
+          <ExperienceEntry entry={stonyBrook} />
+        </ScrollSection>
+        <ScrollSection id="earlier">
+          {earlier.map((entry) => (
             <ExperienceEntry key={entry.id} entry={entry} />
           ))}
-        </section>
-        <section aria-labelledby="projects-heading">
-          <h2 id="projects-heading">Projects</h2>
+        </ScrollSection>
+        <ScrollSection id="personal">
+          <h2>Projects</h2>
           {resume.projects.map((project) => (
             <ProjectEntry key={project.id} project={project} />
           ))}
-        </section>
-        <section aria-labelledby="skills-heading">
-          <h2 id="skills-heading">Skills</h2>
+        </ScrollSection>
+        <ScrollSection id="closing">
+          <h2>Skills</h2>
           <Skills groups={resume.skills} />
-        </section>
-        <section aria-labelledby="education-heading">
-          <h2 id="education-heading">Education</h2>
+          <h2>Education</h2>
           <Education entries={resume.education} />
-        </section>
+        </ScrollSection>
       </main>
-    </>
+    </div>
   )
 }
 

@@ -11,6 +11,10 @@ const base = process.env.BASE_PATH
 export default defineConfig({
   base,
   plugins: [react()],
+  build: {
+    // three.js is one large lazy chunk by nature; PR 9 sets real budgets.
+    chunkSizeWarningLimit: 1000,
+  },
   test: {
     include: ['src/**/*.test.{ts,tsx}'],
   },
