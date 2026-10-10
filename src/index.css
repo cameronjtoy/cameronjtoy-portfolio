@@ -142,6 +142,7 @@ ul {
 }
 
 .entry + .entry,
+.entry-stack > div + div,
 .scroll-section + .scroll-section,
 main {
   margin-top: 2.5rem;
@@ -447,4 +448,23 @@ main {
     align-items: flex-start;
     padding: clamp(1.25rem, 5vh, 3.5rem) 1rem 0;
   }
+}
+
+/* Several entries sharing one section: only the current one shows. */
+
+.app--enhanced .entry-stack {
+  display: grid;
+}
+
+.app--enhanced .entry-stack > div {
+  grid-area: 1 / 1;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.app--enhanced .entry-stack > div[data-current] {
+  opacity: 1;
+  pointer-events: auto;
 }

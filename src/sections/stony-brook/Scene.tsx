@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import type { Group } from 'three'
+import { fitSplit } from '../../engine/fit'
 import type { SceneProps } from '../../engine/registry'
 import { getSection } from '../../engine/scroll'
 import { Board } from './Board'
@@ -32,14 +33,9 @@ export default function StonyBrookScene({ id }: SceneProps) {
     }
 
     if (!root.current) return
-    // Wide screens give the scene the half beside the content; narrow ones
-    // give it the full width, in the lower part of the screen.
-    const wide = viewport.aspect > 1.2
-    const available = wide ? viewport.width * 0.5 : viewport.width * 0.96
-    const scale = Math.min(MAX_SCALE, available / FOOTPRINT)
+    const { scale, y } = fitSplit(viewport, FOOTPRINT, MAX_SCALE)
     root.current.scale.setScalar(scale)
-    root.current.position.y =
-      (wide ? 0 : -viewport.height * 0.2) - (ROOM.height / 2) * scale
+    root.current.position.y = y - (ROOM.height / 2) * scale
   })
 
   return (
