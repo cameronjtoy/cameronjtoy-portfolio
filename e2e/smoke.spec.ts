@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { carProgress } from '../src/sections/bnsf/timeline.ts'
 
 test('renders the resume without console errors', async ({ page }) => {
   const errors: string[] = []
@@ -50,6 +51,28 @@ test.describe('3D experience', () => {
       document.querySelector('#stony-brook')!.scrollIntoView(),
     )
     await expect(rail.locator('[aria-current]')).toHaveText('Stony Brook')
+  })
+
+  test('shows the BNSF highlight for the car that is passing', async ({
+    page,
+  }) => {
+    await page.goto('./')
+    const active = page.locator('.bnsf__cars li[data-active]')
+    await expect(active).toHaveCount(0)
+
+    // Scroll to where the second car (the CRUD framework) is centred.
+    await page.evaluate((progress) => {
+      const section = document.querySelector<HTMLElement>('#bnsf')!
+      const top = section.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: top + (section.offsetHeight - window.innerHeight) * progress,
+        behavior: 'instant',
+      })
+    }, carProgress(1))
+
+    await expect(active).toHaveCount(1)
+    await expect(active).toContainText('~150')
+    await expect(active).toContainText('CRUD framework')
   })
 })
 

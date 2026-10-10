@@ -16,6 +16,7 @@ const hidden: Measurement = { progress: 0, offset: 0, visible: false }
 const elements = new Map<SectionId, HTMLElement>()
 const state = new Map<SectionId, Measurement>()
 const listeners = new Set<() => void>()
+const measureListeners = new Set<() => void>()
 
 let snapshot: ScrollSnapshot = { active: sections[0].id, visible: [] }
 let frame = 0
@@ -51,6 +52,7 @@ function update() {
     snapshot = { active, visible }
     for (const listener of listeners) listener()
   }
+  for (const listener of measureListeners) listener()
 }
 
 function schedule() {
@@ -96,4 +98,21 @@ export function useSectionRef(id: SectionId) {
 
 export function useScrollSnapshot(): ScrollSnapshot {
   return useSyncExternalStore(subscribe, () => snapshot)
+}
+
+function subscribeToMeasure(listener: () => void) {
+  measureListeners.add(listener)
+  return () => measureListeners.delete(listener)
+}
+
+/**
+ * Derives a value from a section's scroll state for use in the DOM, such as
+ * which step of a sequence is showing. The component re-renders only when the
+ * derived value changes, so `select` must return a primitive.
+ */
+export function useSectionValue<T extends string | number | boolean>(
+  id: SectionId,
+  select: (section: Measurement) => T,
+): T {
+  return useSyncExternalStore(subscribeToMeasure, () => select(getSection(id)))
 }

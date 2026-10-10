@@ -16,12 +16,16 @@
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",
+    "d3-array": "^3.2.4",
+    "d3-scale": "^4.0.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "three": "^0.186.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",
+    "@types/d3-array": "^3.2.2",
+    "@types/d3-scale": "^4.0.9",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",

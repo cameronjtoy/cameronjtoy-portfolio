@@ -3,6 +3,7 @@ import { resume } from './content/resume'
 import { NavRail } from './engine/NavRail'
 import { ScrollSection } from './engine/ScrollSection'
 import { useEnhanced } from './engine/useEnhanced'
+import { BnsfSection } from './sections/bnsf/Section'
 import { Education } from './sections/Education'
 import { ExperienceEntry } from './sections/ExperienceEntry'
 import { Header } from './sections/Header'
@@ -32,9 +33,9 @@ function App() {
         <Header resume={resume} />
       </ScrollSection>
       <main id="main">
-        <ScrollSection id="bnsf">
+        <ScrollSection id="bnsf" layout="stage">
           <h2>Experience</h2>
-          <ExperienceEntry entry={bnsf} />
+          <BnsfSection entry={bnsf} />
         </ScrollSection>
         <ScrollSection id="stony-brook">
           <ExperienceEntry entry={stonyBrook} />

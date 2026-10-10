@@ -8,11 +8,16 @@ export interface SceneProps {
 export interface SceneEntry {
   component: ComponentType<SceneProps>
   /**
-   * Scenes are moved with their section by default. A scene that fills the
-   * view out to a horizon cannot be slid off screen, so it sets this and
-   * handles its own entrance and exit from `getSection(id).offset`.
+   * How the engine places the scene.
+   * - `beside` (default): moved with its section and, on wide screens,
+   *   shifted right to sit next to the content panel.
+   * - `centered`: moved with its section and kept in the middle, for sections
+   *   whose content sits above the scene instead of beside it.
+   * - `self`: left alone. A scene that fills the view out to a horizon cannot
+   *   be slid off screen, so it handles its own entrance and exit from
+   *   `getSection(id).offset`.
    */
-  selfPositioned?: boolean
+  placement?: 'beside' | 'centered' | 'self'
 }
 
 // Each section's scene is its own lazily loaded chunk. Scenes read their
@@ -24,9 +29,12 @@ const placeholder: SceneEntry = {
 export const scenes: Record<SectionId, SceneEntry> = {
   hero: {
     component: lazy(() => import('../sections/hero/Scene')),
-    selfPositioned: true,
+    placement: 'self',
   },
-  bnsf: placeholder,
+  bnsf: {
+    component: lazy(() => import('../sections/bnsf/Scene')),
+    placement: 'centered',
+  },
   'stony-brook': placeholder,
   earlier: placeholder,
   personal: placeholder,

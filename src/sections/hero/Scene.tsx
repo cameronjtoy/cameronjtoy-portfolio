@@ -92,6 +92,8 @@ export default function HeroScene({ id }: SceneProps) {
     // the viewport, +1 the top. It follows the section's bottom edge out.
     const edge = Math.max(-1, -1 - (2 * offset) / size.height)
     if (pitch.current) {
+      // Once the section has fully left, nothing should linger at the top edge.
+      pitch.current.visible = edge < 1
       pitch.current.rotation.x =
         Math.atan(edge * Math.tan(HALF_FOV)) + NEAR_ANGLE
     }

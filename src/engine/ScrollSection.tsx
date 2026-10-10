@@ -9,16 +9,24 @@ import { sections, type SectionId } from './sections'
  */
 export function ScrollSection({
   id,
+  layout = 'beside',
   children,
 }: {
   id: SectionId
+  /** `stage` puts the content above a full-width scene and scrolls for longer. */
+  layout?: 'beside' | 'stage'
   children: ReactNode
 }) {
   const ref = useSectionRef(id)
   const label = sections.find((section) => section.id === id)?.label
 
   return (
-    <section ref={ref} id={id} className="scroll-section" aria-label={label}>
+    <section
+      ref={ref}
+      id={id}
+      className={`scroll-section scroll-section--${layout}`}
+      aria-label={label}
+    >
       <div className="scroll-section__pin">
         <div className="panel">{children}</div>
       </div>
