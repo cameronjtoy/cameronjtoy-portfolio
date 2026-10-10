@@ -10,6 +10,12 @@ export const palette = {
   steel: '#868e96',
   ink: '#212529',
   paper: '#f1ede6',
+  grass: '#8fae5d',
+  pine: '#3f7d4e',
+  haze: '#7f9ba6',
+  sky: '#cfe4ef',
+  wood: '#7a5a3a',
+  gravel: '#a89f91',
 } as const
 
 export type PaletteColor = keyof typeof palette

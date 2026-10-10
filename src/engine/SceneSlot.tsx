@@ -12,10 +12,10 @@ const WIDE_ASPECT = 1.2
 /** Mounts a section's scene and moves it with the section as the page scrolls. */
 export function SceneSlot({ id }: { id: SectionId }) {
   const group = useRef<Group>(null)
-  const Scene = scenes[id]
+  const { component: Scene, selfPositioned } = scenes[id]
 
   useFrame(({ size, viewport }) => {
-    if (!group.current) return
+    if (!group.current || selfPositioned) return
     const { offset } = getSection(id)
     group.current.position.y = -(offset / size.height) * viewport.height
     group.current.position.x =

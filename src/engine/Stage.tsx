@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { CAMERA_FOV, CAMERA_Z } from './camera'
 import { Lights } from '../design/Lights'
 import { quality } from './quality'
 import { SceneSlot } from './SceneSlot'
@@ -14,7 +15,7 @@ export default function Stage() {
         dpr={[1, quality.maxDpr]}
         shadows={quality.shadows}
         gl={{ antialias: quality.antialias, alpha: true }}
-        camera={{ position: [0, 0, 10], fov: 35 }}
+        camera={{ position: [0, 0, CAMERA_Z], fov: CAMERA_FOV }}
       >
         <Lights />
         {visible.map((id) => (
