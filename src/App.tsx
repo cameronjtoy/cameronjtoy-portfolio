@@ -4,8 +4,8 @@ import { NavRail } from './engine/NavRail'
 import { ScrollSection } from './engine/ScrollSection'
 import { useEnhanced } from './engine/useEnhanced'
 import { BnsfSection } from './sections/bnsf/Section'
+import { EarlierSection } from './sections/earlier/Section'
 import { Education } from './sections/Education'
-import { ExperienceEntry } from './sections/ExperienceEntry'
 import { Header } from './sections/Header'
 import { ProjectEntry } from './sections/ProjectEntry'
 import { Skills } from './sections/Skills'
@@ -41,10 +41,8 @@ function App() {
         <ScrollSection id="stony-brook" layout="split">
           <StonyBrookSection entry={stonyBrook} />
         </ScrollSection>
-        <ScrollSection id="earlier">
-          {earlier.map((entry) => (
-            <ExperienceEntry key={entry.id} entry={entry} />
-          ))}
+        <ScrollSection id="earlier" layout="split">
+          <EarlierSection entries={earlier} />
         </ScrollSection>
         <ScrollSection id="personal">
           <h2>Projects</h2>

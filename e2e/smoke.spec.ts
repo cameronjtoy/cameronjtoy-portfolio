@@ -94,6 +94,33 @@ test.describe('3D experience', () => {
     await expect(active).toHaveCount(1)
     await expect(active).toContainText('REST APIs')
   })
+
+  test('switches the earlier-work entry with its beats', async ({ page }) => {
+    await page.goto('./')
+    const current = page.locator('#earlier .entry-stack > [data-current]')
+    const active = page.locator('#earlier .steps li[data-active]')
+
+    const scrollTo = (progress: number) =>
+      page.evaluate((progress) => {
+        const section = document.querySelector<HTMLElement>('#earlier')!
+        const top = section.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({
+          top: top + (section.offsetHeight - window.innerHeight) * progress,
+          behavior: 'instant',
+        })
+      }, progress)
+
+    // Second of four beats: Develop for Good, passwordless sign-in.
+    await scrollTo(0.4)
+    await expect(current).toContainText('Develop for Good')
+    await expect(active).toContainText('500+')
+
+    // Third beat: University at Buffalo, the data profiler.
+    await scrollTo(0.68)
+    await expect(current).toContainText('University at Buffalo')
+    await expect(active).toHaveCount(1)
+    await expect(active).toContainText('20%')
+  })
 })
 
 test.describe('with reduced motion', () => {

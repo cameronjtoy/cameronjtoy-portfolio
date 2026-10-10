@@ -38,7 +38,9 @@ export const scenes: Record<SectionId, SceneEntry> = {
   'stony-brook': {
     component: lazy(() => import('../sections/stony-brook/Scene')),
   },
-  earlier: placeholder,
+  earlier: {
+    component: lazy(() => import('../sections/earlier/Scene')),
+  },
   personal: placeholder,
   closing: placeholder,
 }
