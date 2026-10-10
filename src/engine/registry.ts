@@ -22,10 +22,6 @@ export interface SceneEntry {
 
 // Each section's scene is its own lazily loaded chunk. Scenes read their
 // scroll state with `getSection(id)` inside `useFrame`.
-const placeholder: SceneEntry = {
-  component: lazy(() => import('../sections/placeholder/PlaceholderScene')),
-}
-
 export const scenes: Record<SectionId, SceneEntry> = {
   hero: {
     component: lazy(() => import('../sections/hero/Scene')),
@@ -44,5 +40,7 @@ export const scenes: Record<SectionId, SceneEntry> = {
   personal: {
     component: lazy(() => import('../sections/personal/Scene')),
   },
-  closing: placeholder,
+  closing: {
+    component: lazy(() => import('../sections/closing/Scene')),
+  },
 }

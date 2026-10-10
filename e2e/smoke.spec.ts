@@ -170,6 +170,28 @@ test.describe('3D experience', () => {
     await prem.getByRole('button', { name: 'Restore' }).click()
     await expect(prem).toContainText('all 5 records verify')
   })
+
+  test('draws the skill tree and offers contact links at the end', async ({
+    page,
+  }) => {
+    await page.goto('./')
+    const tree = page.locator('#closing .skill-tree')
+    await expect(tree).not.toHaveAttribute('data-drawn')
+
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }),
+    )
+    await expect(tree).toHaveAttribute('data-drawn')
+    await expect(
+      tree.locator('text', { hasText: 'Apache Spark' }),
+    ).toBeVisible()
+
+    const closing = page.locator('#closing')
+    await expect(closing.getByRole('link', { name: 'Email' })).toBeVisible()
+    await expect(
+      closing.getByRole('link', { name: 'Source on GitHub' }),
+    ).toHaveAttribute('href', /cameronjtoy-portfolio/)
+  })
 })
 
 test.describe('with reduced motion', () => {
@@ -184,5 +206,10 @@ test.describe('with reduced motion', () => {
       page.getByRole('heading', { level: 3, name: 'BNSF Railway' }),
     ).toBeVisible()
     await expect(page.locator('canvas')).toHaveCount(0)
+    // Skills show as the plain list, not the tree.
+    await expect(page.locator('.skill-tree')).toBeHidden()
+    await expect(
+      page.locator('.skills').getByText('Apache Spark'),
+    ).toBeVisible()
   })
 })
