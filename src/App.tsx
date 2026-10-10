@@ -4,11 +4,10 @@ import { NavRail } from './engine/NavRail'
 import { ScrollSection } from './engine/ScrollSection'
 import { useEnhanced } from './engine/useEnhanced'
 import { BnsfSection } from './sections/bnsf/Section'
+import { ClosingSection } from './sections/closing/Section'
 import { EarlierSection } from './sections/earlier/Section'
-import { Education } from './sections/Education'
 import { Header } from './sections/Header'
 import { PersonalSection } from './sections/personal/Section'
-import { Skills } from './sections/Skills'
 import { StonyBrookSection } from './sections/stony-brook/Section'
 
 // three.js only downloads for visitors who get the 3D experience.
@@ -49,10 +48,7 @@ function App() {
           <PersonalSection projects={resume.projects} />
         </ScrollSection>
         <ScrollSection id="closing">
-          <h2>Skills</h2>
-          <Skills groups={resume.skills} />
-          <h2>Education</h2>
-          <Education entries={resume.education} />
+          <ClosingSection resume={resume} />
         </ScrollSection>
       </main>
     </div>

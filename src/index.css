@@ -546,3 +546,81 @@ main {
 .app--enhanced .scroll-section--split .panel > h2 {
   margin-bottom: 1rem;
 }
+
+/* Closing: skills tree, education, contact */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The plain page lists skills as tags; the 3D experience draws the tree and
+   keeps the list for screen readers. */
+.skill-tree {
+  display: none;
+}
+
+.app--enhanced .skill-tree {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.app--enhanced .skills {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.skill-tree path {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.6s ease-out;
+  transition-delay: calc(var(--order) * 25ms);
+}
+
+.skill-tree circle {
+  fill: var(--accent);
+}
+
+.skill-tree text {
+  fill: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  transition-delay: calc(var(--order) * 25ms + 200ms);
+}
+
+.skill-tree text.skill-tree__group {
+  font-weight: 600;
+}
+
+.skill-tree[data-drawn] path {
+  stroke-dashoffset: 0;
+}
+
+.skill-tree[data-drawn] text {
+  opacity: 1;
+}
+
+.contact-note {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.app--enhanced #closing .links {
+  margin-top: 0;
+}

@@ -44,6 +44,8 @@ export interface Resume {
   location: string
   summary: string
   links: Link[]
+  /** Where this site's code lives. */
+  source: Link
   experience: Experience[]
   projects: Project[]
   education: Education[]
@@ -61,6 +63,10 @@ export const resume: Resume = {
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/cameron-j-toy/' },
     { label: 'GitHub', href: 'https://github.com/cameronjtoy' },
   ],
+  source: {
+    label: 'Source on GitHub',
+    href: 'https://github.com/cameronjtoy/cameronjtoy-portfolio',
+  },
   experience: [
     {
       id: 'bnsf',

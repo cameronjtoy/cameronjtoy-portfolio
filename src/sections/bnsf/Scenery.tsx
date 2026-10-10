@@ -10,14 +10,21 @@ import type { SectionId } from '../../engine/sections'
 // and a little lineside scenery. It is kept shallow in depth so the whole
 // thing slides on and off screen with the section.
 
-const LENGTH = 70
 const SLEEPER_GAP = 0.5
-const SLEEPERS = LENGTH / SLEEPER_GAP
 
 const LAMP_ON = '#ff3b30'
 const LAMP_OFF = '#4d1a17'
 
-export function Scenery({ id }: { id: SectionId }) {
+export function Scenery({
+  id,
+  length = 70,
+}: {
+  id: SectionId
+  /** Length of the strip of ground and track, centred on the origin. */
+  length?: number
+}) {
+  const LENGTH = length
+  const SLEEPERS = Math.floor(LENGTH / SLEEPER_GAP)
   const sleepers = useRef<InstancedMesh>(null)
   const lamps = [
     useRef<MeshBasicMaterial>(null),
@@ -27,11 +34,11 @@ export function Scenery({ id }: { id: SectionId }) {
   const trees = useMemo(() => {
     const random = seededRandom(25)
     return Array.from({ length: 16 }, () => ({
-      x: (random() - 0.5) * 40,
+      x: (random() - 0.5) * Math.min(40, LENGTH - 2),
       z: -1.5 - random() * 1.2,
       scale: 0.6 + random() * 0.6,
     }))
-  }, [])
+  }, [LENGTH])
 
   useLayoutEffect(() => {
     const mesh = sleepers.current
@@ -43,7 +50,7 @@ export function Scenery({ id }: { id: SectionId }) {
       mesh.setMatrixAt(i, dummy.matrix)
     }
     mesh.instanceMatrix.needsUpdate = true
-  }, [])
+  }, [LENGTH, SLEEPERS])
 
   useFrame(({ clock }) => {
     // The crossing lamps alternate while the train is going by.
