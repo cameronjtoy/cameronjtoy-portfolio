@@ -7,7 +7,7 @@ import { BnsfSection } from './sections/bnsf/Section'
 import { EarlierSection } from './sections/earlier/Section'
 import { Education } from './sections/Education'
 import { Header } from './sections/Header'
-import { ProjectEntry } from './sections/ProjectEntry'
+import { PersonalSection } from './sections/personal/Section'
 import { Skills } from './sections/Skills'
 import { StonyBrookSection } from './sections/stony-brook/Section'
 
@@ -44,11 +44,9 @@ function App() {
         <ScrollSection id="earlier" layout="split">
           <EarlierSection entries={earlier} />
         </ScrollSection>
-        <ScrollSection id="personal">
+        <ScrollSection id="personal" layout="split">
           <h2>Projects</h2>
-          {resume.projects.map((project) => (
-            <ProjectEntry key={project.id} project={project} />
-          ))}
+          <PersonalSection projects={resume.projects} />
         </ScrollSection>
         <ScrollSection id="closing">
           <h2>Skills</h2>
