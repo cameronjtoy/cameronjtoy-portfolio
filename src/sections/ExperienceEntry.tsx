@@ -2,7 +2,7 @@ import type { Experience } from '../content/resume'
 
 export function ExperienceEntry({ entry }: { entry: Experience }) {
   return (
-    <article id={entry.id} className="entry">
+    <article className="entry">
       <div className="entry-head">
         <h3>{entry.company}</h3>
         <p className="meta">
