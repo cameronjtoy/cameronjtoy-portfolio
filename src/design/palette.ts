@@ -21,6 +21,9 @@ export const palette = {
   white: '#f8f9fa',
   graphite: '#3b4046',
   soil: '#6b4f3a',
+  manila: '#e3d39b',
+  floor: '#d6c7ad',
+  wall: '#dce7e6',
 } as const
 
 export type PaletteColor = keyof typeof palette

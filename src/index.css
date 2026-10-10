@@ -360,14 +360,18 @@ main {
   }
 }
 
-/* BNSF: highlight cards above a passing train */
+/* Step sections: one highlight card at a time, matched to the scene */
 
-.bnsf__metric {
+.steps__metric {
   display: none;
 }
 
 .app--enhanced .scroll-section--stage {
   min-height: 600vh;
+}
+
+.app--enhanced .scroll-section--split {
+  min-height: 450vh;
 }
 
 .app--enhanced .scroll-section--stage .scroll-section__pin {
@@ -376,8 +380,8 @@ main {
   padding: clamp(1.25rem, 5vh, 3.5rem) 1rem 0;
 }
 
-.app--enhanced .scroll-section--stage .panel {
-  max-width: 36rem;
+.app--enhanced .scroll-section--stage .panel,
+.app--enhanced .scroll-section--split .panel {
   padding: 0;
   background: none;
   border: 0;
@@ -385,16 +389,20 @@ main {
   backdrop-filter: none;
 }
 
+.app--enhanced .scroll-section--stage .panel {
+  max-width: 36rem;
+}
+
 /* Every card occupies the same cell; only the active one shows. They stay in
    the accessibility tree so the full list is always readable. */
-.app--enhanced .entry > .bnsf__cars {
+.app--enhanced .entry > .steps {
   display: grid;
   margin-top: 1.25rem;
   padding: 0;
   list-style: none;
 }
 
-.app--enhanced .entry > .bnsf__cars > li {
+.app--enhanced .entry > .steps > li {
   grid-area: 1 / 1;
   align-self: start;
   margin: 0;
@@ -410,13 +418,13 @@ main {
     transform 0.3s;
 }
 
-.app--enhanced .entry > .bnsf__cars > li[data-active] {
+.app--enhanced .entry > .steps > li[data-active] {
   opacity: 1;
   pointer-events: auto;
   transform: none;
 }
 
-.app--enhanced .bnsf__metric {
+.app--enhanced .steps__metric {
   display: block;
   margin-bottom: 0.375rem;
   font-family: var(--font-mono);
@@ -424,11 +432,19 @@ main {
   color: var(--muted);
 }
 
-.app--enhanced .bnsf__metric strong {
+.app--enhanced .steps__metric strong {
   margin-right: 0.375rem;
   font-family: var(--font-sans);
   font-size: 1.75rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--accent);
+}
+
+@media (max-width: 48rem) {
+  /* Content at the top, scene in the lower half. */
+  .app--enhanced .scroll-section--split .scroll-section__pin {
+    align-items: flex-start;
+    padding: clamp(1.25rem, 5vh, 3.5rem) 1rem 0;
+  }
 }

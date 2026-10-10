@@ -57,7 +57,7 @@ test.describe('3D experience', () => {
     page,
   }) => {
     await page.goto('./')
-    const active = page.locator('.bnsf__cars li[data-active]')
+    const active = page.locator('#bnsf .steps li[data-active]')
     await expect(active).toHaveCount(0)
 
     // Scroll to where the second car (the CRUD framework) is centred.
@@ -73,6 +73,26 @@ test.describe('3D experience', () => {
     await expect(active).toHaveCount(1)
     await expect(active).toContainText('~150')
     await expect(active).toContainText('CRUD framework')
+  })
+
+  test('shows the Stony Brook highlight for the current beat', async ({
+    page,
+  }) => {
+    await page.goto('./')
+    const active = page.locator('#stony-brook .steps li[data-active]')
+
+    // Halfway through the section is the second beat: transform and file.
+    await page.evaluate(() => {
+      const section = document.querySelector<HTMLElement>('#stony-brook')!
+      const top = section.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: top + (section.offsetHeight - window.innerHeight) * 0.5,
+        behavior: 'instant',
+      })
+    })
+
+    await expect(active).toHaveCount(1)
+    await expect(active).toContainText('REST APIs')
   })
 })
 
