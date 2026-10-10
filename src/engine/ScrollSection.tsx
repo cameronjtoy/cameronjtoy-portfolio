@@ -13,8 +13,12 @@ export function ScrollSection({
   children,
 }: {
   id: SectionId
-  /** `stage` puts the content above a full-width scene and scrolls for longer. */
-  layout?: 'beside' | 'stage'
+  /**
+   * - `beside`: a panel next to the scene (below it on phones).
+   * - `stage`: content above a full-width scene, with a long scroll.
+   * - `split`: bare content next to the scene, and above it on phones.
+   */
+  layout?: 'beside' | 'stage' | 'split'
   children: ReactNode
 }) {
   const ref = useSectionRef(id)

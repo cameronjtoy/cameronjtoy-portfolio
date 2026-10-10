@@ -35,7 +35,9 @@ export const scenes: Record<SectionId, SceneEntry> = {
     component: lazy(() => import('../sections/bnsf/Scene')),
     placement: 'centered',
   },
-  'stony-brook': placeholder,
+  'stony-brook': {
+    component: lazy(() => import('../sections/stony-brook/Scene')),
+  },
   earlier: placeholder,
   personal: placeholder,
   closing: placeholder,

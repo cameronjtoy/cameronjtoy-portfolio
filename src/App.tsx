@@ -9,6 +9,7 @@ import { ExperienceEntry } from './sections/ExperienceEntry'
 import { Header } from './sections/Header'
 import { ProjectEntry } from './sections/ProjectEntry'
 import { Skills } from './sections/Skills'
+import { StonyBrookSection } from './sections/stony-brook/Section'
 
 // three.js only downloads for visitors who get the 3D experience.
 const Stage = lazy(() => import('./engine/Stage'))
@@ -37,8 +38,8 @@ function App() {
           <h2>Experience</h2>
           <BnsfSection entry={bnsf} />
         </ScrollSection>
-        <ScrollSection id="stony-brook">
-          <ExperienceEntry entry={stonyBrook} />
+        <ScrollSection id="stony-brook" layout="split">
+          <StonyBrookSection entry={stonyBrook} />
         </ScrollSection>
         <ScrollSection id="earlier">
           {earlier.map((entry) => (
