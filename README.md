@@ -29,6 +29,15 @@ npm run test:e2e    # browser tests; needs `npx playwright install` once
 
 `npm run test:e2e` runs Chromium, Firefox and WebKit. CI runs Chromium only.
 
+## Working on the 3D models
+
+```sh
+npm run dev         # then open /?gallery to view one model at a time
+npm run shots -- before   # screenshots of every model and section into shots/before/
+```
+
+Models are built from the shape kit in [src/design/shapes.tsx](src/design/shapes.tsx). The gallery is development-only and is not in the production build. Register a model in [src/dev/models.tsx](src/dev/models.tsx) to see it there.
+
 ## Where things are
 
 | Path                                           | What                                                            |

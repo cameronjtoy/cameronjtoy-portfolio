@@ -12,6 +12,7 @@ export const palette = {
   paper: '#f1ede6',
   grass: '#8fae5d',
   pine: '#3f7d4e',
+  fir: '#57965f',
   haze: '#7f9ba6',
   sky: '#cfe4ef',
   wood: '#7a5a3a',
