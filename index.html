@@ -4,14 +4,63 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#faf8f5"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#12100e"
+      media="(prefers-color-scheme: dark)"
+    />
     <meta
       name="description"
       content="Cameron Toy is a software engineer working on backend systems, data pipelines, and full-stack products."
     />
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <!-- Link previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:title" content="Cameron Toy | Software Engineer" />
+    <meta
+      property="og:description"
+      content="Cameron Toy is a software engineer working on backend systems, data pipelines, and full-stack products."
+    />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A low-poly prairie with a rail line running to the horizon, and the name Cameron Toy."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <title>Cameron Toy | Software Engineer</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div
+        style="
+          max-width: 36rem;
+          margin: 4rem auto;
+          padding: 0 1.25rem;
+          font-family: system-ui, sans-serif;
+          line-height: 1.6;
+        "
+      >
+        <h1>Cameron Toy</h1>
+        <p>Software Engineer. This site needs JavaScript to show the rest.</p>
+        <p>
+          <a href="mailto:cameron.j.toy@gmail.com">Email</a> ·
+          <a href="https://www.linkedin.com/in/cameron-j-toy/">LinkedIn</a> ·
+          <a href="https://github.com/cameronjtoy">GitHub</a>
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

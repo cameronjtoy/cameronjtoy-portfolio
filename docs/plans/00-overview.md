@@ -1,5 +1,7 @@
 # Personal Portfolio: scroll-driven 3D site (React + R3F + D3) on GitHub Pages
 
+> This is the plan as approved before work started. Two things changed along the way: the repo is `cameronjtoy/cameronjtoy-portfolio` (served at `/cameronjtoy-portfolio/`), not `cameronjtoy.github.io`, and each PR's own file in this folder records where it departed from the outline below.
+
 ## Context
 
 Cameron wants a new personal portfolio that tells the resume as a sequence of scroll-driven 3D scenes instead of a text page: a BNSF train passing by, a medical-office document organizer for Stony Brook, and a personal section that shows an interest in distributed systems and in product. It must be a static site hosted on GitHub Pages. The work is split into independent subplans, one PR each.

@@ -1,3 +1,4 @@
+import { AxeBuilder } from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 import { carProgress } from '../src/sections/bnsf/timeline.ts'
 
@@ -212,4 +213,43 @@ test.describe('with reduced motion', () => {
       page.locator('.skills').getByText('Apache Spark'),
     ).toBeVisible()
   })
+})
+
+test.describe('accessibility', () => {
+  test('3D experience has no detectable violations', async ({ page }) => {
+    await page.goto('./')
+    await expect(page.locator('.stage canvas')).toBeVisible()
+    const results = await new AxeBuilder({ page }).analyze()
+    expect(results.violations).toEqual([])
+  })
+
+  test('plain page has no detectable violations', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('./')
+    const results = await new AxeBuilder({ page }).analyze()
+    expect(results.violations).toEqual([])
+  })
+})
+
+test('unknown addresses get the not-found page with a way home', async ({
+  page,
+}) => {
+  await page.goto('./404.html')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'End of the line',
+  )
+  await expect(page.getByRole('link')).toHaveAttribute('href', '/')
+})
+
+test('falls back to the plain page if the 3D layer fails to load', async ({
+  page,
+}) => {
+  await page.route('**/assets/Stage-*.js', (route) => route.abort())
+  await page.goto('./')
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Cameron Toy' }),
+  ).toBeVisible()
+  await expect(page.locator('.app--enhanced')).toHaveCount(0)
+  await expect(page.locator('canvas')).toHaveCount(0)
+  await expect(page.locator('.skills').getByText('Apache Spark')).toBeVisible()
 })
