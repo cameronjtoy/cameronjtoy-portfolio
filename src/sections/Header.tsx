@@ -17,6 +17,9 @@ export function Header({ resume }: { resume: Resume }) {
           ))}
         </ul>
       </nav>
+      <p className="scroll-cue" aria-hidden="true">
+        Scroll to follow the tracks ↓
+      </p>
     </header>
   )
 }
